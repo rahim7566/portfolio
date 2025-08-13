@@ -7,6 +7,7 @@ import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import ThemeToggle from "@/components/theme-toggle";
 import useScrollSpy from "@/hooks/use-scroll-spy";
+import TechLogos from "@/components/TechLogos";
 
 const contact = {
   name: "Muhammad Abdur Rahim",
@@ -166,6 +167,19 @@ const Index = () => {
     e.currentTarget.reset();
   };
 
+  const onDownloadCV = async () => {
+    try {
+      const res = await fetch("/cv.pdf", { method: "HEAD" });
+      if (res.ok) {
+        window.open("/cv.pdf", "_blank", "noopener,noreferrer");
+      } else {
+        toast("CV not found. Please upload cv.pdf to the public folder.");
+      }
+    } catch {
+      toast("Unable to download CV right now.");
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Header />
@@ -188,6 +202,7 @@ const Index = () => {
             <div className="flex items-center gap-3">
               <a href="#projects"><Button variant="hero" size="lg">View Projects</Button></a>
               <a href="#contact"><Button variant="outline" size="lg">Contact Me</Button></a>
+              <Button variant="secondary" size="lg" onClick={onDownloadCV}>Download CV</Button>
             </div>
           </div>
           <div className="flex-1 w-full">
@@ -196,7 +211,7 @@ const Index = () => {
         </section>
 
         {/* Projects */}
-        <section id="projects" className="py-12 md:py-16">
+        <section id="projects" className="scroll-mt-28 py-12 md:py-16">
           <h2 className="text-2xl md:text-3xl font-bold mb-6">Projects</h2>
           <div className="grid md:grid-cols-2 gap-6">
             {projects.map((p) => (
@@ -217,7 +232,7 @@ const Index = () => {
         </section>
 
         {/* Experience */}
-        <section id="experience" className="py-12 md:py-16">
+        <section id="experience" className="scroll-mt-28 py-12 md:py-16">
           <h2 className="text-2xl md:text-3xl font-bold mb-6">Experience</h2>
           <div className="space-y-6">
             {experience.map((e) => (
@@ -235,7 +250,7 @@ const Index = () => {
         </section>
 
         {/* Skills */}
-        <section id="skills" className="py-12 md:py-16">
+        <section id="skills" className="scroll-mt-28 py-12 md:py-16">
           <h2 className="text-2xl md:text-3xl font-bold mb-6">Skills</h2>
           <div className="grid md:grid-cols-2 gap-6">
             {Object.entries(skills).map(([k, v]) => (
@@ -251,8 +266,14 @@ const Index = () => {
           </div>
         </section>
 
+        {/* Tech Stack Logos */}
+        <section id="tech" className="scroll-mt-28 py-12 md:py-16">
+          <h2 className="text-2xl md:text-3xl font-bold mb-6">Tech Stack</h2>
+          <TechLogos />
+        </section>
+
         {/* Education */}
-        <section id="education" className="py-12 md:py-16">
+        <section id="education" className="scroll-mt-28 py-12 md:py-16">
           <h2 className="text-2xl md:text-3xl font-bold mb-6">Education</h2>
           <article className="card-elevated p-6">
             <h3 className="text-xl font-semibold">{education.degree} <span className="text-muted-foreground">/ {education.institution}</span></h3>
@@ -286,7 +307,7 @@ const Index = () => {
         </section>
 
         {/* Contact */}
-        <section id="contact" className="py-12 md:py-16">
+        <section id="contact" className="scroll-mt-28 py-12 md:py-16">
           <h2 className="text-2xl md:text-3xl font-bold mb-6">Contact</h2>
           <div className="grid md:grid-cols-2 gap-6">
             <article className="card-elevated p-6">
