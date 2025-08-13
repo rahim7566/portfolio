@@ -1,8 +1,12 @@
+import * as React from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import heroImg from "@/assets/hero-rahim.jpg";
 import { Github, Linkedin, Mail, MapPin, Phone, ExternalLink } from "lucide-react";
 import { toast } from "sonner";
+import { cn } from "@/lib/utils";
+import ThemeToggle from "@/components/theme-toggle";
+import useScrollSpy from "@/hooks/use-scroll-spy";
 
 const contact = {
   name: "Muhammad Abdur Rahim",
@@ -101,6 +105,24 @@ const activities = {
 };
 
 function Header() {
+  const sections = [
+    { href: "#projects", id: "projects", label: "Projects" },
+    { href: "#experience", id: "experience", label: "Experience" },
+    { href: "#skills", id: "skills", label: "Skills" },
+    { href: "#education", id: "education", label: "Education" },
+    { href: "#contact", id: "contact", label: "Contact" },
+  ];
+  const activeId = useScrollSpy(sections.map((s) => s.id), 100);
+  const [manualActive, setManualActive] = React.useState<string | null>(null);
+  const current = manualActive ?? activeId;
+
+  React.useEffect(() => {
+    if (manualActive) {
+      const t = setTimeout(() => setManualActive(null), 600);
+      return () => clearTimeout(t);
+    }
+  }, [manualActive]);
+
   return (
     <header className="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-background/80 border-b">
       <nav className="container mx-auto flex items-center justify-between h-16">
@@ -108,19 +130,22 @@ function Header() {
           {contact.name}
         </a>
         <div className="hidden md:flex items-center gap-6 text-sm">
-          {[
-            { href: "#projects", label: "Projects" },
-            { href: "#experience", label: "Experience" },
-            { href: "#skills", label: "Skills" },
-            { href: "#education", label: "Education" },
-            { href: "#contact", label: "Contact" },
-          ].map((i) => (
-            <a key={i.href} href={i.href} className="hover:text-primary transition-colors">
+          {sections.map((i) => (
+            <a
+              key={i.href}
+              href={i.href}
+              onClick={() => setManualActive(i.id)}
+              className={cn(
+                "transition-colors",
+                current === i.id ? "text-primary font-semibold" : "hover:text-primary"
+              )}
+            >
               {i.label}
             </a>
           ))}
         </div>
         <div className="flex items-center gap-2">
+          <ThemeToggle />
           <a href={contact.github} aria-label="GitHub" className="hover:text-primary"><Github /></a>
           <a href={contact.linkedin} aria-label="LinkedIn" className="hover:text-primary"><Linkedin /></a>
         </div>
