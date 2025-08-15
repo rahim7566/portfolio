@@ -128,12 +128,12 @@ function Header() {
       <nav className="container mx-auto flex items-center justify-between h-16">
         <a
           href="#home"
-          className="font-extrabold text-lg gradient-text"
+          className="font-extrabold text-medium md:text-lg gradient-text"
           aria-label="Go to home"
         >
           {contact.name}
         </a>
-        <div className="hidden md:flex items-center gap-6 text-sm">
+        <div className="hidden md:flex items-center gap-2 md:gap-6 text-sm">
           {sections.map((i) => (
             <a
               key={i.href}
@@ -214,7 +214,7 @@ const Index = () => {
       <Header />
       <main id="home" className="container mx-auto px-4">
         {/* Hero */}
-         <section className="py-16 md:py-24 grid grid-cols-1 md:grid-cols-2 items-center gap-8 md:gap-12">
+        <section className="py-16 md:py-24 grid grid-cols-1 md:grid-cols-2 items-center gap-8 md:gap-12">
           {/* text column */}
           <div className="min-w-0 order-2 md:order-1">
             <h1 className="text-2xl md:text-3xl font-extrabold leading-tight mb-4">
