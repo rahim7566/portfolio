@@ -214,13 +214,15 @@ const Index = () => {
       <Header />
       <main id="home" className="container mx-auto px-4">
         {/* Hero */}
-        <section className="py-16 md:py-24 flex flex-col-reverse md:flex-row items-center gap-10">
-          <div className="flex-1 animate-fade-in">
-            <h1 className="text-3xl md:text-5xl font-extrabold leading-tight mb-4">
+         <section className="py-16 md:py-24 grid grid-cols-1 md:grid-cols-2 items-center gap-8 md:gap-12">
+          {/* text column */}
+          <div className="min-w-0 order-2 md:order-1">
+            <h1 className="text-2xl md:text-3xl font-extrabold leading-tight mb-4">
               <span className="block">{contact.name}</span>
               <span className="gradient-text">{contact.title}</span>
             </h1>
-            <p className="text-muted-foreground max-w-2xl mb-6">
+
+            <p className="text-muted-foreground max-w-prose leading-relaxed mb-6">
               Innovative and detail-oriented Java and Spring Boot developer with
               expertise in building robust applications, microservices, secure
               payment solutions, and advanced reporting systems, complemented by
@@ -228,7 +230,8 @@ const Index = () => {
               interfaces with React. Dedicated to delivering high-quality,
               reliable software platforms.
             </p>
-            <div className="flex flex-wrap items-center gap-3 text-sm text-muted-foreground mb-6">
+
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-muted-foreground mb-6">
               <span className="inline-flex items-center gap-2">
                 <MapPin className="h-4 w-4" /> {contact.location}
               </span>
@@ -240,28 +243,41 @@ const Index = () => {
               </a>
               <a
                 href={`mailto:${contact.email}`}
-                className="inline-flex items-center gap-2 hover:text-primary"
+                className="inline-flex items-center gap-2 hover:text-primary break-all"
               >
                 <Mail className="h-4 w-4" /> {contact.email}
               </a>
             </div>
-            <div className="flex items-center gap-3">
-              <a href="#projects">
-                <Button variant="hero" size="lg">
+
+            {/* buttons: stack on mobile, inline on ≥sm */}
+            <div className="flex flex-col sm:flex-row flex-wrap items-stretch gap-3">
+              <a href="#projects" className="w-full sm:w-auto">
+                <Button variant="hero" size="lg" className="w-full sm:w-auto">
                   View Projects
                 </Button>
               </a>
-              <a href="#contact">
-                <Button variant="outline" size="lg">
+              <a href="#contact" className="w-full sm:w-auto">
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="w-full sm:w-auto"
+                >
                   Contact Me
                 </Button>
               </a>
-              <Button variant="secondary" size="lg" onClick={onDownloadCV}>
+              <Button
+                variant="secondary"
+                size="lg"
+                onClick={onDownloadCV}
+                className="w-full sm:w-auto"
+              >
                 Download CV
               </Button>
             </div>
           </div>
-          <div className="flex-1 w-full">
+
+          {/* image column */}
+          <div className="min-w-0 order-1 md:order-2">
             <img
               src={heroImg}
               alt="Abstract tech hero with teal accents representing Java & Spring Boot development"
